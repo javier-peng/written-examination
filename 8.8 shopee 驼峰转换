@@ -1,0 +1,70 @@
+#include<iostream>
+#include<vector>
+#include<cstring>
+#include<string>
+using namespace std;
+
+char transMaxToMin(char c) {
+	return c + 32;
+}
+
+char transMinToMax(char c) {
+	return c - 32;
+}
+
+bool checkMax(char c) {
+	if (c >= 'A' && c <= 'Z')
+	{
+		return true;
+	}
+	return false;
+}
+bool checkMin(char c) {
+	if (c >= 'a' && c <= 'z')
+	{
+		return true;
+	}
+	return false;
+}
+bool checkNum(char c) {
+	if (c >= '0' && c <= '9')
+	{
+		return true;
+	}
+	return false;
+}
+int main() {
+	string str;
+	getline(cin,str);
+	int n = str.size();
+	char result[1000] = { '\0' };
+	int tmp = 0;
+	int i = 0;
+	if (checkMax(str[0]) == true)
+	{
+		str[0] = transMaxToMin(str[0]);
+	}
+	while (i < n) {
+		if (checkMax(str[i]) == false && checkMin(str[i]) == false && checkNum(str[i]) == false)
+		{
+			i++;
+			if (checkNum(str[i]) == true || checkMax(str[i]) == true) {
+				result[tmp++] = str[i];
+			}
+			if (checkMin(str[i]) == true)
+			{
+				result[tmp++] = transMinToMax(str[i]);
+			}
+			i++;
+		}
+		else {
+			result[tmp++] = str[i];
+			i++;
+		}
+	}
+	if (checkMax(result[0]) == true)
+	{
+		result[0] = transMaxToMin(result[0]);
+	}
+	cout << result << endl;
+}
